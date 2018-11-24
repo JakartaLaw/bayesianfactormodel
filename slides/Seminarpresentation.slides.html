@@ -11928,7 +11928,7 @@ a.anchor-link {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="2.-Introduktion-til-Faktormodeller">2. Introduktion til Faktormodeller<a class="anchor-link" href="#2.-Introduktion-til-Faktormodeller">&#182;</a></h2><p>\begin{equation}
+<h2 id="2.-Introduction-to-factor-models">2. Introduction to factor models<a class="anchor-link" href="#2.-Introduction-to-factor-models">&#182;</a></h2><p>\begin{equation}
     \underset{(p \times 1)}{y_i} = \underset{(p \times k)}{\beta} \underset{(k \times 1)}{F_i} + \underset{(p \times 1)}{\epsilon_i}
 \end{equation}</p>
 <p>for $i=1,...,T$ individuals. $\beta$ denotes the factor loadings and F are the factor scores</p>
@@ -11942,6 +11942,7 @@ a.anchor-link {
 <p>\begin{equation}
     \psi = I_k
 \end{equation}</p>
+<p><img style="float" src="factorloading.jpeg" width="300"></p>
 
 </div>
 </div>
@@ -11950,7 +11951,14 @@ a.anchor-link {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="3.-Naive-Factor-model-(Jonas)">3. Naive Factor model (Jonas)<a class="anchor-link" href="#3.-Naive-Factor-model-(Jonas)">&#182;</a></h2>
+<h2 id="3.-Naive-Factor-model">3. Naive Factor model<a class="anchor-link" href="#3.-Naive-Factor-model">&#182;</a></h2><p>\begin{equation}
+    \underset{(p \times t)}{y} = \underset{(p \times t)}{\beta} \underset{(k \times t)}{F} + \underset{(p \times t)}{\epsilon}
+\end{equation}</p>
+<p>Mispecification!</p>
+<p>\begin{equation}
+    p(\beta \vert y, \Sigma, F) \propto P(Y \vert \beta, F, \Sigma)P(\beta)
+\end{equation}</p>
+
 </div>
 </div>
 </div></section></section><section><section>
@@ -11958,7 +11966,20 @@ a.anchor-link {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="4.-Naive-Factor-model-2-(Jonas)">4. Naive Factor model 2 (Jonas)<a class="anchor-link" href="#4.-Naive-Factor-model-2-(Jonas)">&#182;</a></h2>
+<h2 id="4.-Naive-Factor-model-2">4. Naive Factor model 2<a class="anchor-link" href="#4.-Naive-Factor-model-2">&#182;</a></h2><p>For Q being an orthogonal matrix $Q\cdot Q' = I_k$, we have the following problem:</p>
+<p>define new factor loading matrix s.t. $\tilde\beta = \beta Q'$</p>
+<p>\begin{equation}
+    var(y) = \tilde\beta \tilde\beta' + \Sigma =  \beta Q'(\beta Q') + \Sigma = \beta\beta' + \Sigma
+\end{equation}
+                                    ....No identification!</p>
+<p>\begin{array}{lcr}
+\beta_{11} &amp; 0 &amp; 0 \\
+\beta_{11} &amp; \beta_{22} &amp; 0 \\
+\beta_{31} &amp; \beta_{32} &amp; \beta_{33} \\
+... &amp; ... &amp; ... \\
+\beta_{p1} &amp; \beta_{p2} &amp; \beta_{p3} \\ \end{array}</p>
+<p>Second problem: Sign switching matrix</p>
+
 </div>
 </div>
 </div></section></section><section><section>
@@ -11972,7 +11993,7 @@ a.anchor-link {
 <p>\begin{equation}
     Y^*_i = \beta F_i + \epsilon_i
 \end{equation}</p>
-<p><img style="float" src="gaussian.png"></p>
+<p><img style="float" src="gaussian.png" width="300"></p>
 <p>Posterior:
 \begin{equation}
     P(\beta \vert Y^*, Y, \tau, F) \propto  P(Y \vert Y^*, \tau)P(Y^*\vert \beta, F)P(\beta)P(F)
@@ -12004,7 +12025,7 @@ a.anchor-link {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="7.-Data,-simulations-and-factor-loading-(Jeppe)">7. Data, simulations and factor loading (Jeppe)<a class="anchor-link" href="#7.-Data,-simulations-and-factor-loading-(Jeppe)">&#182;</a></h2><ul>
+<h2 id="7.-Data,-simulations-and-factor-loading">7. Data, simulations and factor loading<a class="anchor-link" href="#7.-Data,-simulations-and-factor-loading">&#182;</a></h2><ul>
 <li>Data<ul>
 <li>Survey data from municipality elections 2017 (KV17)</li>
 <li>Politicians answered questionaire of 15 questions by the danish broadcasting service</li>
@@ -12016,14 +12037,8 @@ a.anchor-link {
 <ul>
 <li>Simulations<ul>
 <li>To test if our algorithm converges 2 test data strategies utilized:</li>
-<li>Strategy 1:<ul>
-<li>simulate from 3 underlying factors</li>
-</ul>
-</li>
-<li>Strategy 2:<ul>
-<li>Use cholesky decomposition to create dataset with correct covariance matrix</li>
-</ul>
-</li>
+<li>Strategy 1: simulate from 3 underlying factors</li>
+<li>Strategy 2: Use cholesky decomposition to create dataset with correct covariance matrix</li>
 <li>Both had fast convergence</li>
 </ul>
 </li>
@@ -12031,7 +12046,6 @@ a.anchor-link {
 <ul>
 <li>Factor loading<ul>
 <li>Upper triangular matrix require we think about the ordering of the questions</li>
-<li>Which question loads to which matrix</li>
 <li>2 first questions should be different in nature (which latent factor the questions represent)<ul>
 <li>loads only to factor 0: <em>Municipality tax should be reduced</em></li>
 <li>loads only to factor 0 &amp; 1: <em>Institutions run by local authorities takes to much into consideration the concerns of religious minorities.</em></li>
@@ -12050,8 +12064,8 @@ a.anchor-link {
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="8.-Results-Naive---Trace-and-distribution-of-$\beta$">8. Results Naive - Trace and distribution of $\beta$<a class="anchor-link" href="#8.-Results-Naive---Trace-and-distribution-of-$\beta$">&#182;</a></h2><table>
 <tr>
-    <td> <img src="../figs/estimation_trace_beta_plot.png", width = 400> </td>
-    <td> <img src="../figs/estimation_dist_beta_plot.png", width = 400> </td>
+    <td> <img src="estimation_trace_beta_plot.png", width = 400> </td>
+    <td> <img src="estimation_dist_beta_plot.png", width = 400> </td>
 </tr>
 </table>
 </div>
@@ -12063,8 +12077,8 @@ a.anchor-link {
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="9.-Results-Naive---scatter-plots-1">9. Results Naive - scatter plots 1<a class="anchor-link" href="#9.-Results-Naive---scatter-plots-1">&#182;</a></h2><table>
 <tr>
-    <td> <img src="../figs/estimation_scatter_la_el.png", width = 400> </td>
-    <td> <img src="../figs/estimation_scatter_rv_df.png", width = 400> </td>
+    <td> <img src="estimation_scatter_la_el.png", width = 450> </td>
+    <td> <img src="estimation_scatter_rv_df.png", width = 450> </td>
 </tr>
 </table>
 </div>
@@ -12076,8 +12090,8 @@ a.anchor-link {
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="9.-Results-Naive---scatter-plots-2">9. Results Naive - scatter plots 2<a class="anchor-link" href="#9.-Results-Naive---scatter-plots-2">&#182;</a></h2><table>
 <tr>
-    <td> <img src="../figs/estimation_scatter_v_c.png", width = 400> </td>
-    <td> <img src="../figs/estimation_scatter_v_df.png", width = 400> </td>
+    <td> <img src="estimation_scatter_v_c.png", width = 450> </td>
+    <td> <img src="estimation_scatter_v_sd.png", width = 450> </td>
 </tr>
 </table>
 </div>
